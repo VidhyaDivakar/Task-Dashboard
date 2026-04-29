@@ -19,8 +19,37 @@ const [newTaskTitle, setNewTaskTitle] = useState(''); // for stroing local state
     console.log('Add task clicked:', newTaskTitle);
     setNewTaskTitle('');
   };
-
+// Adding detele functionality
   const handleDelete = (taskId: string) => {
     console.log('Delete task:', taskId);
   };
+// Adding search functionality
+  const filteredTasks = tasks.filter(task => 
+    task.title.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
+ //  Adding sorting functionality along with search
+const sortedTasks = [...filteredTasks].sort((a,b) => {
+    if (sortBy ==- 'priority'){
+        const order: Record<TaskPriority, number> = {
+            high: 3,
+            medium: 2,
+            low: 1
+        };
+        return order[b.priority] - order[a.priority];
+    } else {
+        const order: Record<TaskStatus, numner> ={
+            pending: 1,
+            'in-progress':2,
+            completed: 3
+        };
+        return order[a.status] - order[b.status];
     }
+    });
+return (
+    <div>
+        <h2>Task List</h2>
+        
+    </div>
+)
+    
