@@ -46,10 +46,51 @@ const sortedTasks = [...filteredTasks].sort((a,b) => {
         return order[a.status] - order[b.status];
     }
     });
+    // Returning the component with a single parent
+    //Adding Task, Search input fields; Sort dropdown field
 return (
     <div>
         <h2>Task List</h2>
-        
+        <div>
+            <input type="text" placeholder="Enter task.." value={newTaskTitle}
+            onChange={e => setNewTaskTitle(e.target.value)}
+                />
+                <button onClick={handleAddTask}>Add</button>
+            </div>
+{/*Adding search field*/}
+        <div>
+<input type ="text" placeholder="Search tasks..." value={searchQuery} 
+onChange={e => setSearchQuery(e.target.value)}
+/>
+</div>
+{/*Adding filter */}
+<div>
+    <label> Sort By</label>
+    <select value ={sortBy} onChange={e => setSortBy(e.target.value as 'priority' | 'status')}>
+<option value ="priority">Priority</option>
+<option value="status">Status</option>
+    </select>
+</div>
+{/*Displaying the Task List on the UI*/}
+<ul>
+    {sortedTasks.map(task => (
+        <li key={task.id}>
+            <strong>{task.title}</strong>({task.priority}) - {task.status}
+            {/*Adding functionality to update status change*/}
+            <select 
+            value ={task.status}
+            onChange={e => onStatusChange(task.id, e.target.value as TaskStatus)}>
+                <option value ="pending"> Pending</option>
+                <option value ="in-progress">In Progress</option>
+                <option value ="completed">Completed</option>
+            </select>
+            {/*Adding button to delete task*/}
+            <button onClick={() => handleDelete(task.id)}>
+                Delete
+            </button>    
+            </li>
+    ))}
+</ul>
     </div>
-)
-    
+);
+    };
