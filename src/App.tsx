@@ -61,16 +61,16 @@ const App: React.FC = () => {
     <div style={{ padding: '20px' }}>
       <h1>Task Manager</h1>
 
-      {/* ➤ Form */}
+      
       <TaskForm onSubmit={handleAddTask} />
 
-      {/* ➤ Filter 
+      {/* 
       <TaskFilter
         filters={filters}
         onFilterChange={setFilters}
       />*/}
 
-      {/* ➤ List */}
+   
       <TaskList
         tasks={filteredTasks}
         onStatusChange={handleStatusChange}
