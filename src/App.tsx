@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { TaskForm } from './components/TaskForm/TaskForm';
 import { TaskList } from './components/TaskList/TaskList';
-import { TaskFilter } from './components/TaskFilter/TaskFilter';
+//import { TaskFilter } from './components/TaskFilter/TaskFilter';
 
 import './App.css'
 import type {
@@ -32,7 +32,7 @@ const App: React.FC = () => {
      setTasks(prev => [...prev, newTask]);
   };
 
-  //update=ing status
+  //updating status
     const handleStatusChange = (taskId: string, newStatus: TaskStatus) => {
     setTasks(prev =>
       prev.map(task =>
@@ -42,16 +42,41 @@ const App: React.FC = () => {
       )
     );
   };
-  
 
-function App() {
-  const [count, setCount] = useState(0)
+  // Adding logic to filter the tasks
+   const filteredTasks = tasks.filter(task => {
+    const matchesStatus =
+      filters.status === 'all' || task.status === filters.status;
 
-  return (
-    <>
+    const matchesPriority =
+      filters.priority === 'all' || task.priority === filters.priority;
 
-    </>
-  )
-}
+    const matchesSearch =
+      task.title.toLowerCase().includes(filters.searchQuery?.toLowerCase() || '');
 
-export default App
+    return matchesStatus && matchesPriority && matchesSearch;
+  });
+
+ return (
+    <div style={{ padding: '20px' }}>
+      <h1>Task Manager</h1>
+
+      {/* ➤ Form */}
+      <TaskForm onSubmit={handleAddTask} />
+
+      {/* ➤ Filter 
+      <TaskFilter
+        filters={filters}
+        onFilterChange={setFilters}
+      />*/}
+
+      {/* ➤ List */}
+      <TaskList
+        tasks={filteredTasks}
+        onStatusChange={handleStatusChange}
+      />
+    </div>
+  );
+};
+
+export default App;
