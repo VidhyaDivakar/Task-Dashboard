@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 // Imports a specific Hook from React;  
 // useState lets your component store and update state
-import type { TaskListProps, TaskStatus, TaskPriority } from '../types'; //compoenets inport
+import type { TaskListProps, TaskStatus, TaskPriority } from '../../types'; //compoenets inport
 //Defining the React Functional component 'TaskList', that receives props matching TaskListProps. 
 // Here we are using Destructuring of props
 export const TaskList: React.FC<TaskListProps> = ({
@@ -94,3 +94,4 @@ export const TaskList: React.FC<TaskListProps> = ({
         </div>
     );
 };
+export default TaskList;
