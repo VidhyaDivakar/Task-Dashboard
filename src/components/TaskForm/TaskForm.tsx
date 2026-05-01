@@ -86,72 +86,76 @@ export const TaskForm: FC<TaskFormProps> = ({
     };
 
     return (
-        <form onSubmit={handleSubmit}>
-            <h2>{initialData ? 'Edit Task' : 'Add Task'}</h2>
+        <form onSubmit={handleSubmit} className="space-y-6 rounded-3xl border border-slate-200 bg-slate-50 p-6 shadow-sm">
+            <h2 className="text-xl font-semibold text-slate-900">{initialData ? 'Edit Task' : 'Add Task'}</h2>
 
-            {/* Adding title of the form */}
-            <div>
+            <div className="space-y-2">
                 <input
                     type="text"
                     name="title"
                     placeholder="Task title"
                     value={formData.title}
                     onChange={handleChange}
+                    className="w-full rounded-2xl border border-slate-300 bg-white px-4 py-3 text-slate-900 outline-none transition focus:border-sky-500 focus:ring-2 focus:ring-sky-100"
                 />
-                {errors.title && <p style={{ color: 'red' }}>{errors.title}</p>}
+                {errors.title && <p className="text-sm text-rose-600">{errors.title}</p>}
             </div>
 
-            {/* Adding description of the form */}
-            <div>
+            <div className="space-y-2">
                 <textarea
                     name="description"
                     placeholder="Description"
                     value={formData.description}
                     onChange={handleChange}
+                    className="w-full min-h-[120px] rounded-2xl border border-slate-300 bg-white px-4 py-3 text-slate-900 outline-none transition focus:border-sky-500 focus:ring-2 focus:ring-sky-100"
                 />
             </div>
 
-            {/* Adding status of the task */}
-            <div>
-                <label>Status:</label>
-                <select
-                    name="status"
-                    value={formData.status}
-                    onChange={handleChange}
-                >
-                    <option value="pending">Pending</option>
-                    <option value="in-progress">In Progress</option>
-                    <option value="completed">Completed</option>
-                </select>
+            <div className="grid gap-4 sm:grid-cols-2">
+                <div className="space-y-2">
+                    <label className="block text-sm font-medium text-slate-700">Status</label>
+                    <select
+                        name="status"
+                        value={formData.status}
+                        onChange={handleChange}
+                        className="w-full rounded-2xl border border-slate-300 bg-white px-4 py-3 text-slate-900 outline-none transition focus:border-sky-500 focus:ring-2 focus:ring-sky-100"
+                    >
+                        <option value="pending">Pending</option>
+                        <option value="in-progress">In Progress</option>
+                        <option value="completed">Completed</option>
+                    </select>
+                </div>
+
+                <div className="space-y-2">
+                    <label className="block text-sm font-medium text-slate-700">Priority</label>
+                    <select
+                        name="priority"
+                        value={formData.priority}
+                        onChange={handleChange}
+                        className="w-full rounded-2xl border border-slate-300 bg-white px-4 py-3 text-slate-900 outline-none transition focus:border-sky-500 focus:ring-2 focus:ring-sky-100"
+                    >
+                        <option value="low">Low</option>
+                        <option value="medium">Medium</option>
+                        <option value="high">High</option>
+                    </select>
+                </div>
             </div>
 
-            {/* Adding priority field of the form */}
-            <div>
-                <label>Priority:</label>
-                <select
-                    name="priority"
-                    value={formData.priority}
-                    onChange={handleChange}
-                >
-                    <option value="low">Low</option>
-                    <option value="medium">Medium</option>
-                    <option value="high">High</option>
-                </select>
-            </div>
-
-            {/* Adding due date field of the form */}
-            <div>
+            <div className="space-y-2">
                 <input
                     type="date"
                     name="dueDate"
                     value={formData.dueDate || ''}
                     onChange={handleChange}
+                    className="w-full rounded-2xl border border-slate-300 bg-white px-4 py-3 text-slate-900 outline-none transition focus:border-sky-500 focus:ring-2 focus:ring-sky-100"
                 />
-                {errors.dueDate && <p style={{ color: 'red' }}>{errors.dueDate}</p>}
+                {errors.dueDate && <p className="text-sm text-rose-600">{errors.dueDate}</p>}
             </div>
 
-            {/* Adding submit field of the form */}
-            <button type="submit">
+            <button
+                type="submit"
+                className="inline-flex items-center justify-center rounded-2xl bg-slate-900 px-6 py-3 text-white transition hover:bg-slate-800"
+            >
                 {initialData ? 'Update Task' : 'Add Task'}
             </button>
         </form>

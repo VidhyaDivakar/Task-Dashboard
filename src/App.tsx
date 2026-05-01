@@ -43,6 +43,11 @@ const App: React.FC = () => {
     );
   };
 
+  // delete a task from the list
+  const handleDeleteTask = (taskId: string) => {
+    setTasks(prev => prev.filter(task => task.id !== taskId));
+  };
+
   // Adding logic to filter the tasks
   const filteredTasks = tasks.filter(task => {
     const matchesStatus =
@@ -58,23 +63,23 @@ const App: React.FC = () => {
   });
 
   return (
-    <div style={{ padding: '20px' }}>
-      <h1>Task Manager</h1>
+    <div className="min-h-screen bg-slate-50 p-5 text-slate-900">
+      <div className="mx-auto max-w-4xl rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
+        <h1 className="mb-6 text-3xl font-semibold text-slate-900">Task Manager</h1>
 
+        <TaskForm onSubmit={handleAddTask} />
 
-      <TaskForm onSubmit={handleAddTask} />
+        <TaskFilter
+          filters={filters}
+          onFilterChange={setFilters}
+        />
 
-
-      <TaskFilter
-        filters={filters}
-        onFilterChange={setFilters}
-      />
-
-
-      <TaskList
-        tasks={filteredTasks}
-        onStatusChange={handleStatusChange}
-      />
+        <TaskList
+          tasks={filteredTasks}
+          onStatusChange={handleStatusChange}
+          onDelete={handleDeleteTask}
+        />
+      </div>
     </div>
   );
 };

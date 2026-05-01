@@ -23,8 +23,8 @@ export const Dashboard: React.FC = () => {
     priority: 'all',
     searchQuery: ''
   });
-// Function to create a new task using form data and add it to the existing tasks list
-// Generates a unique id and timestamp, then updates state without mutating old data
+  // Function to create a new task using form data and add it to the existing tasks list
+  // Generates a unique id and timestamp, then updates state without mutating old data
   const handleAddTask = (data: TaskFormData) => {
     const newTask: Task = {
       id: Date.now().toString(),
@@ -33,9 +33,9 @@ export const Dashboard: React.FC = () => {
     };
     setTasks(prev => [...prev, newTask]);
   };
-// Function to update the status of a specific task based on its id
-// Loops through tasks and only updates the matched task while keeping others unchanged
-   const handleStatusChange = (taskId: string, newStatus: TaskStatus) => {
+  // Function to update the status of a specific task based on its id
+  // Loops through tasks and only updates the matched task while keeping others unchanged
+  const handleStatusChange = (taskId: string, newStatus: TaskStatus) => {
     setTasks(prev =>
       prev.map(task =>
         task.id === taskId ? { ...task, status: newStatus } : task
@@ -43,7 +43,11 @@ export const Dashboard: React.FC = () => {
     );
   };
 
-   const filteredTasks = tasks.filter(task => {
+  const handleDeleteTask = (taskId: string) => {
+    setTasks(prev => prev.filter(task => task.id !== taskId));
+  };
+
+  const filteredTasks = tasks.filter(task => {
     return (
       (filters.status === 'all' || task.status === filters.status) &&
       (filters.priority === 'all' || task.priority === filters.priority) &&
@@ -51,7 +55,7 @@ export const Dashboard: React.FC = () => {
     );
   });
 
-    const total = tasks.length;
+  const total = tasks.length;
   const completed = tasks.filter(t => t.status === 'completed').length;
   const pending = tasks.filter(t => t.status === 'pending').length;
 
@@ -61,12 +65,12 @@ export const Dashboard: React.FC = () => {
       <h1>Task Dashboard</h1>
 
       <div>
-        <span>Total: {total}</span> | 
-        <span> Completed: {completed}</span> | 
+        <span>Total: {total}</span> |
+        <span> Completed: {completed}</span> |
         <span> Pending: {pending}</span>
       </div>
-          <div style={{ display: 'flex', gap: '20px', flexWrap: 'wrap' }}>
-        
+      <div style={{ display: 'flex', gap: '20px', flexWrap: 'wrap' }}>
+
         <div style={{ flex: 1 }}>
           <TaskForm onSubmit={handleAddTask} />
         </div>
@@ -80,6 +84,7 @@ export const Dashboard: React.FC = () => {
           <TaskList
             tasks={filteredTasks}
             onStatusChange={handleStatusChange}
+            onDelete={handleDeleteTask}
           />
         </div>
 
